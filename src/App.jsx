@@ -7,11 +7,12 @@ import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 import CityList from "./components/CityList";
 import { useState, useEffect } from "react";
+import CountryList from "./components/CountryList";
 
 const BASE_URL = "http://localhost:9000/";
 
 function App() {
-  const [cities, setCities] = useState({});
+  const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(function () {
@@ -46,9 +47,9 @@ function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="app" element={<AppLayout />}>
-          <Route index element={<CityList />} />
-          <Route path="cities" element={<CityList />} />
-          <Route path="countries" element={<p>List of countries</p>} />
+          <Route index element={<CityList cities={cities} isLoading={isLoading}/>} />
+          <Route path="cities" element={<CityList cities={cities} isLoading={isLoading}/>} />
+          <Route path="countries" element={<CountryList cities={cities}/>} />
           <Route path="Form" element={<p>Form</p>} />
         </Route>
       </Routes>
